@@ -1,0 +1,18 @@
+module ram (
+    input clk,
+    input we,                // Write Enable
+    input [1:0] addr,        // 2-bit address for 4 locations
+    input [7:0] din,         // Data input
+    output reg [7:0] dout    // Data output
+);
+
+reg [7:0] mem [3:0];         // 4 memory locations, each 8-bit
+
+always @(posedge clk) begin
+    if (we)
+        mem[addr] <= din;    // Write on rising clock
+    else
+        dout <= mem[addr];   // Read on rising clock
+end
+
+endmodule
